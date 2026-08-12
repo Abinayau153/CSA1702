@@ -1,0 +1,136 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMlkWocByjcMh9yDsoEiiRg",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Abinayau153/CSA1702/blob/main/family%20tree\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "98f8f992"
+      },
+      "source": [
+        "First, let's install SWI-Prolog, a popular Prolog interpreter, in our Colab environment."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%%writefile family_search.c\n",
+        "#include <stdio.h>\n",
+        "#include <string.h>\n",
+        "\n",
+        "struct Person {\n",
+        "    char name[20];\n",
+        "    char father[20];\n",
+        "    char mother[20];\n",
+        "};\n",
+        "\n",
+        "int main() {\n",
+        "    struct Person family[] = {\n",
+        "        {\"David\", \"John\", \"Mary\"},\n",
+        "        {\"Lisa\", \"John\", \"Mary\"},\n",
+        "        {\"Peter\", \"David\", \"Anna\"}\n",
+        "    };\n",
+        "\n",
+        "    char child[20];\n",
+        "    int found = 0;\n",
+        "\n",
+        "    printf(\"Enter child's name: \");\n",
+        "    scanf(\"%s\", child);\n",
+        "\n",
+        "    for (int i = 0; i < 3; i++) {\n",
+        "        if (strcmp(child, family[i].name) == 0) {\n",
+        "            printf(\"Father: %s\\n\", family[i].father);\n",
+        "            printf(\"Mother: %s\\n\", family[i].mother);\n",
+        "            found = 1;\n",
+        "            break;\n",
+        "        }\n",
+        "    }\n",
+        "\n",
+        "    if (!found) {\n",
+        "        printf(\"Person not found.\\n\");\n",
+        "    }\n",
+        "\n",
+        "    return 0;\n",
+        "}"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Fj5nhqfdaZdA",
+        "outputId": "d6390e9c-5163-40e6-badc-9fed7f8c1170"
+      },
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Overwriting family_search.c\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "9bd505a4"
+      },
+      "source": [
+        "# Compile the C program\n",
+        "!gcc family_search.c -o family_search"
+      ],
+      "execution_count": 22,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7d3399f7",
+        "outputId": "1246ba3f-c454-4016-a0ba-ffbb5501b3a5"
+      },
+      "source": [
+        "# Execute the C program\n",
+        "!./family_search"
+      ],
+      "execution_count": 23,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter child's name: david\n",
+            "Person not found.\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
